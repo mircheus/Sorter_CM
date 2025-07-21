@@ -527,6 +527,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b2387a2cc0411799d744ecb1d83895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 1474939105}
+  - {fileID: 1944189278}
+  - {fileID: 1254483902}
 --- !u!4 &1143121947
 Transform:
   m_ObjectHideFlags: 0
@@ -1008,9 +1012,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 2621332824070106091, guid: 5610886143ad96d4b84654a9f8328517, type: 3}
-  circlePrefab: {fileID: 0}
-  trianglePrefab: {fileID: 0}
-  starPrefab: {fileID: 0}
+  circlePrefab: {fileID: 3161962432634861230, guid: 4d728f0cf173c1c489ee6ed9653e1f13, type: 3}
+  trianglePrefab: {fileID: 5050488690586300620, guid: 3c151b426e9dfa3409d6820978e1ba3a, type: 3}
+  starPrefab: {fileID: 458156001911148013, guid: dc0efda51f128d547829c9944d939305, type: 3}
 --- !u!114 &1789561538
 MonoBehaviour:
   m_ObjectHideFlags: 0
