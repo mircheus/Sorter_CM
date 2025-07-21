@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Game.Scripts.FigureFactory
+namespace Game.Scripts.FigureFactory.Factories
 {
     public class SquareFactory : PooledFigureFactory<Square>
     {
-        public SquareFactory(GameObject prefab, int size, Transform parent) : base(prefab, size, parent)
+        public SquareFactory(Square prefab, int size, Transform parent) : base(prefab, size, parent)
         {
         }
     }

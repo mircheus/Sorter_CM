@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Game.Scripts.FigureFactory;
 using Game.Scripts.FigureFactory.Factories;
 using Game.Scripts.FigureFactory.Figures;
@@ -9,38 +11,29 @@ namespace Game.Scripts.Infrastructure
 {
     public class GameInstaller : MonoInstaller
     {
-        public GameObject squarePrefab;
-        public GameObject circlePrefab;
-        public GameObject trianglePrefab;
-        public GameObject starPrefab;
+        // public List<Figure> figures;
+        public Transform objectPool;
+        public Square squarePrefab;
+        public Circle circlePrefab;
+        public Triangle trianglePrefab;
+        public Star starPrefab;
 
         public override void InstallBindings()
         {
-            Container.Bind<IFigureFactory>()
-                .WithId(FigureType.Square)
-                .To<SquareFactory>()
-                .AsSingle()
-                .WithArguments(squarePrefab, 5, transform);
+            BindFactory<SquareFactory, Square>(squarePrefab);
+            BindFactory<CircleFactory, Circle>(circlePrefab);
+            BindFactory<TriangleFactory, Triangle>(trianglePrefab);
+            BindFactory<StarFactory, Star>(starPrefab);
+        }
 
+        private void BindFactory<TFactory, TFigure>(TFigure prefab)
+            where TFactory : PooledFigureFactory<TFigure>
+            where TFigure : Figure
+        {
             Container.Bind<IFigureFactory>()
-                .WithId(FigureType.Circle)
-                .To<CircleFactory>()
+                .To<TFactory>()
                 .AsSingle()
-                .WithArguments(circlePrefab, 5, this.transform);
-            
-            Container.Bind<IFigureFactory>()
-                .WithId(FigureType.Triangle)
-                .To<TriangleFactory>()
-                .AsSingle()
-                .WithArguments(trianglePrefab, 5, this.transform);
-            
-            Container.Bind<IFigureFactory>()
-                .WithId(FigureType.Star)
-                .To<StarFactory>()
-                .AsSingle()
-                .WithArguments(starPrefab, 5, this.transform);
+                .WithArguments(prefab, 5, objectPool);
         }
     }
-
-
 }

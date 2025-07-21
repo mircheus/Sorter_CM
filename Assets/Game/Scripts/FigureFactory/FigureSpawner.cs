@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Scripts.FigureFactory.Factories;
 using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Infrastructure;
 using TMPro;
@@ -12,53 +13,76 @@ namespace Game.Scripts.FigureFactory
 {
     public class FigureSpawner : MonoBehaviour
     {
+        [SerializeField] private DeathZone deathZone;
         [SerializeField] private Transform[] spawnPoints;
         
-        private Dictionary<FigureType, IFigureFactory> _factories  = new Dictionary<FigureType, IFigureFactory>();
+        private Dictionary<Type, IFigureFactory> _factories  = new Dictionary<Type, IFigureFactory>();
         
         private Coroutine _spawnCoroutine;
+        private List<Type> _figureTypes;
 
         [Inject]
-        public void Construct(
-            [Inject(Id = FigureType.Square)] IFigureFactory squareFactory,
-            [Inject(Id = FigureType.Circle)] IFigureFactory circleFactory,
-            [Inject(Id = FigureType.Triangle)] IFigureFactory triangleFactory,
-            [Inject(Id = FigureType.Star)] IFigureFactory starFactory)
+        public void Construct(List<IFigureFactory> factories)
         {
-            _factories = new Dictionary<FigureType, IFigureFactory>
-            {
-                { FigureType.Square, squareFactory },
-                { FigureType.Circle, circleFactory },
-                { FigureType.Triangle, triangleFactory },
-                { FigureType.Star, starFactory }
-            };
+            _factories = factories.ToDictionary(f => f.FigureType);
+            _figureTypes = _factories.Keys.ToList();
         }
 
+        private void OnEnable()
+        {
+            if (deathZone != null)
+            {
+                deathZone.FigureDespawned += OnFigureDespawned;
+            }
+            // _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+        }
+        
         private void Start()
         {
-            // Example of spawning figures at start
-            Spawn(FigureType.Square, new Vector3(-4, 0, 0));
-            Spawn(FigureType.Circle, new Vector3(-2, 0, 0));
-            Spawn(FigureType.Triangle, new Vector3(0, 0, 0));
-            Spawn(FigureType.Star, new Vector3(2, 0, 0));
+            if(_spawnCoroutine != null)
+            {
+                StopCoroutine(_spawnCoroutine);
+            }
+            
+            _spawnCoroutine = StartCoroutine(SpawnCoroutine());
         }
-
-        private void Spawn(FigureType type, Vector3 pos)
+        
+        private void Spawn(Type figure, Vector3 position, Transform parent = null)
         {
-            _factories[type].GetFromPool(pos);
+            if(_factories.TryGetValue(figure, out var factory))
+            {
+                factory.GetFromPool(position, parent);
+            }
+            else
+            {
+                Debug.LogError($"Factory for type {figure} not found!");
+            }
         }
 
+        private void OnFigureDespawned(Figure obj)
+        {
+            var type = obj.GetType();
+            
+            if (_factories.TryGetValue(type, out var factory))
+            {
+                factory.ReturnToPool(obj);
+            }
+        }
+        
         private IEnumerator SpawnCoroutine()
         {
             while (true)
             {
-                foreach (var spawnPoint in spawnPoints)
-                {
-                    var randomType = (FigureType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(FigureType)).Length);
-                    Spawn(randomType, spawnPoint.position);
-                }
-                yield return new WaitForSeconds(2f); // Adjust the delay as needed
+                SpawnRandomFigure();
+                yield return new WaitForSeconds(1f);
             }
-        } 
+        }
+
+        private void SpawnRandomFigure()
+        {
+            int randomIndex = UnityEngine.Random.Range(0, _figureTypes.Count);
+            var randomSpawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+            Spawn(_figureTypes[randomIndex], randomSpawnPoint.position, randomSpawnPoint);
+        }
     }
 }

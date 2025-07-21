@@ -6,10 +6,10 @@ namespace Game.Scripts.Utilities
     public class ObjectPool<T> where T : MonoBehaviour, IPoolable
     {
         private readonly Queue<T> _pool = new Queue<T>();
-        private readonly GameObject _prefab;
+        private readonly T _prefab;
         private readonly Transform _parent;
 
-        public ObjectPool(GameObject prefab, int initialSize, Transform parent = null)
+        public ObjectPool(T prefab, int initialSize, Transform parent = null)
         {
             _prefab = prefab;
             _parent = parent;
@@ -22,9 +22,15 @@ namespace Game.Scripts.Utilities
             }
         }
 
-        public T Get(Vector3 position)
+        public T Get(Vector3 position, Transform parent = null)
         {
             T instance = _pool.Count > 0 ? _pool.Dequeue() : GameObject.Instantiate(_prefab, _parent).GetComponent<T>();
+
+            if (parent != null)
+            {
+                instance.transform.SetParent(parent);
+            }
+            
             instance.OnSpawn(position);
             return instance;
         }
@@ -32,6 +38,7 @@ namespace Game.Scripts.Utilities
         public void ReturnToPool(T instance)
         {
             instance.OnDespawn();
+            instance.transform.SetParent(_parent);
             _pool.Enqueue(instance);
         }
     }
