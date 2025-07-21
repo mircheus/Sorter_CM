@@ -13,7 +13,7 @@ namespace Game.Scripts.FigureFactory
         private readonly ObjectPool<T> _pool;
         public Type FigureType => typeof(T); // 👈 Added
         
-        Figure IFigureFactory.GetFromPool(Vector3 spawnPosition, Transform parent = null) => GetFromPool(spawnPosition, parent);
+        Figure IFigureFactory.GetFromPool(Vector3 spawnPosition, Transform parent) => GetFromPool(spawnPosition, parent);
         void IFigureFactory.ReturnToPool(Figure figure) => ReturnToPool((T)figure);
 
         [Inject]

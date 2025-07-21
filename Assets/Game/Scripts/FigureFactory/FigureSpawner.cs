@@ -37,6 +37,20 @@ namespace Game.Scripts.FigureFactory
             // _spawnCoroutine = StartCoroutine(SpawnCoroutine());
         }
         
+        private void OnDisable()
+        {
+            if (deathZone != null)
+            {
+                deathZone.FigureDespawned -= OnFigureDespawned;
+            }
+            
+            if (_spawnCoroutine != null)
+            {
+                StopCoroutine(_spawnCoroutine);
+                _spawnCoroutine = null;
+            }
+        }
+        
         private void Start()
         {
             if(_spawnCoroutine != null)
