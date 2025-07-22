@@ -1,7 +1,4 @@
-﻿using Game.Scripts.FigureFactory.Figures;
-using UnityEngine;
-
-namespace Game.Scripts.FigureFactory
+﻿namespace Game.Scripts.FigureFactory.Figures
 {
     public class Square : Figure
     {

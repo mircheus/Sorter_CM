@@ -4,27 +4,27 @@ using UnityEngine;
 
 namespace Game.Scripts.FigureFactory.Figures
 {
-    [RequireComponent(typeof(Draggable))]
-    public abstract class Figure : MonoBehaviour, IPoolable
+    // [RequireComponent(typeof(Draggable))]
+    public abstract class Figure : MonoBehaviour, IPoolable, IDraggable
     {
         [SerializeField] private float speed = 5f;
 
         private float _currentSpeed;
-        private Draggable _draggable;
+        // private Draggable _draggable;
         
         private void OnEnable()
         {
             _currentSpeed = speed;
-            _draggable = GetComponent<Draggable>();
-            _draggable.OnDragStarted += OnDragStarted;
-            _draggable.OnDragEnded += OnDragEnded;
+            // _draggable = GetComponent<Draggable>();
+            // _draggable.OnDragStarted += OnDragStarted;
+            // _draggable.OnDragEnded += OnDragEnded;
         }
 
         private void OnDisable()
         {
             _currentSpeed = 0f;
-            _draggable.OnDragStarted -= OnDragStarted;
-            _draggable.OnDragEnded -= OnDragEnded;
+            // _draggable.OnDragStarted -= OnDragStarted;
+            // _draggable.OnDragEnded -= OnDragEnded;
         }
 
         private void Update()
@@ -51,6 +51,17 @@ namespace Game.Scripts.FigureFactory.Figures
         private void OnDragEnded()
         {
             _currentSpeed = speed;
+        }
+
+        public void StartDrag()
+        {
+            Debug.Log("StartDrag");
+            _currentSpeed = 0f;
+        }
+
+        public void EndDrag()
+        {
+            Debug.Log("EndDrag");
         }
     }
 }

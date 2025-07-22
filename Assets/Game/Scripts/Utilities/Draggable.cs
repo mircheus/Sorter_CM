@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -12,8 +13,8 @@ namespace Game.Scripts.Utilities
         private Vector3 originalPosition;
         private bool isDragging;
         
-        public event UnityAction OnDragStarted;
-        public event UnityAction OnDragEnded;
+        public event Action OnDragStarted;
+        public event Action OnDragEnded;
 
         private void Awake()
         {
