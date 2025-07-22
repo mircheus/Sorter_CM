@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Square
       objectReference: {fileID: 0}
+    - target: {fileID: 996956398923153488, guid: d7e4b9ccc17075f42ad68124ef193652, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7396474111583703875, guid: d7e4b9ccc17075f42ad68124ef193652, type: 3}
       propertyPath: m_Size.x
       value: 4.44
@@ -93,3 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e69a5a40ca444cb5baff39fe55b6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
