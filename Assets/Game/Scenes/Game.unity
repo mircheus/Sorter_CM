@@ -617,8 +617,9 @@ GameObject:
   - component: {fileID: 655516426}
   - component: {fileID: 655516425}
   - component: {fileID: 655516427}
+  - component: {fileID: 655516428}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -740,6 +741,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.6, y: 4.6}
   m_EdgeRadius: 0
+--- !u!114 &655516428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655516424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac307e70054f2b8d4f4fb22b34095c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotType: {fileID: 6488145724266201506, guid: 4d728f0cf173c1c489ee6ed9653e1f13, type: 3}
 --- !u!1 &656420455
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,8 +765,9 @@ GameObject:
   - component: {fileID: 656420457}
   - component: {fileID: 656420456}
   - component: {fileID: 656420458}
+  - component: {fileID: 656420459}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -874,6 +889,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.44, y: 4.44}
   m_EdgeRadius: 0
+--- !u!114 &656420459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656420455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac307e70054f2b8d4f4fb22b34095c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotType: {fileID: 8943654374376850531, guid: 5610886143ad96d4b84654a9f8328517, type: 3}
 --- !u!1 &1025387276
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +966,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathZone: {fileID: 324860397}
+  dropSlots:
+  - {fileID: 655516428}
+  - {fileID: 656420459}
+  - {fileID: 1257419924}
+  - {fileID: 1610364371}
   spawnPoints:
   - {fileID: 1474939105}
   - {fileID: 1944189278}
@@ -1142,8 +1175,9 @@ GameObject:
   - component: {fileID: 1257419922}
   - component: {fileID: 1257419921}
   - component: {fileID: 1257419923}
+  - component: {fileID: 1257419924}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1265,6 +1299,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.92, y: 4.74}
   m_EdgeRadius: 0
+--- !u!114 &1257419924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257419920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac307e70054f2b8d4f4fb22b34095c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotType: {fileID: 8927306201728718348, guid: dc0efda51f128d547829c9944d939305, type: 3}
 --- !u!1 &1459706727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,8 +1441,9 @@ GameObject:
   - component: {fileID: 1610364369}
   - component: {fileID: 1610364368}
   - component: {fileID: 1610364370}
+  - component: {fileID: 1610364371}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1517,6 +1565,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.65, y: 4.72}
   m_EdgeRadius: 0
+--- !u!114 &1610364371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610364367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac307e70054f2b8d4f4fb22b34095c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotType: {fileID: -7965035880195324961, guid: 3c151b426e9dfa3409d6820978e1ba3a, type: 3}
 --- !u!1 &1764980405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,7 +2439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7078164402981141262
 Transform:
   m_ObjectHideFlags: 0

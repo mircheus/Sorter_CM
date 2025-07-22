@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Scripts.Slots;
 using Game.Scripts.Utilities;
 using UnityEngine;
 
@@ -46,6 +47,11 @@ namespace Game.Scripts.FigureFactory.Figures
 
         public void EndDrag()
         {
+            if (TrySnapToSlot())
+            {
+                return;
+            }
+            
             transform.position = _originalPosition;
             _currentSpeed = speed;
         }
@@ -53,6 +59,22 @@ namespace Game.Scripts.FigureFactory.Figures
         private void MoveRight()
         {
             transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime));
+        }
+        
+        private bool TrySnapToSlot()
+        {
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+            
+            foreach (var hit in hits)
+            {
+                if (hit.TryGetComponent(out DropSlot dropSlot))
+                {
+                    dropSlot.SnapFigureToSlot(this);
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

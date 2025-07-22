@@ -38,7 +38,6 @@ namespace Game.Scripts.Utilities
     
         private void OnTouchPressed(InputAction.CallbackContext context)
         {
-            Debug.Log("TouchPressed in position: " + screenPosition.ReadValue<Vector2>());
             Ray ray = _mainCamera.ScreenPointToRay(screenPosition.ReadValue<Vector2>());
             RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
 

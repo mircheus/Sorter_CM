@@ -5,6 +5,7 @@ using System.Linq;
 using Game.Scripts.FigureFactory.Factories;
 using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Infrastructure;
+using Game.Scripts.Slots;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -13,13 +14,15 @@ namespace Game.Scripts.FigureFactory
 {
     public class FigureSpawner : MonoBehaviour
     {
-        [SerializeField] private DeathZone deathZone;
+        [SerializeField] private DeathZone deathZone; // TODO: можно заинжектить
+        [SerializeField] private DropSlot[] dropSlots; // TODO: можно заинжектить
         [SerializeField] private Transform[] spawnPoints;
         
         private Dictionary<Type, IFigureFactory> _factories  = new Dictionary<Type, IFigureFactory>();
         
         private Coroutine _spawnCoroutine;
         private List<Type> _figureTypes;
+        private bool _isSpawning = false;
 
         [Inject]
         public void Construct(List<IFigureFactory> factories)
@@ -34,7 +37,14 @@ namespace Game.Scripts.FigureFactory
             {
                 deathZone.FigureDespawned += OnFigureDespawned;
             }
-            // _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+            
+            if(dropSlots != null && dropSlots.Length > 0)
+            {
+                foreach (var slot in dropSlots)
+                {
+                    slot.FigureDespawned += OnFigureDespawned;
+                }
+            }
         }
         
         private void OnDisable()
@@ -43,16 +53,28 @@ namespace Game.Scripts.FigureFactory
             {
                 deathZone.FigureDespawned -= OnFigureDespawned;
             }
+
+            if(dropSlots != null && dropSlots.Length > 0)
+            {
+                foreach (var slot in dropSlots)
+                {
+                    slot.FigureDespawned += OnFigureDespawned;
+                }
+            }
             
             if (_spawnCoroutine != null)
             {
                 StopCoroutine(_spawnCoroutine);
                 _spawnCoroutine = null;
             }
+            
+            _isSpawning = false; // TODO: можно отдать на контроль вышестоящей сущности
         }
         
         private void Start()
         {
+            _isSpawning = true; // TODO: можно отдать на контроль вышестоящей сущности
+            
             if(_spawnCoroutine != null)
             {
                 StopCoroutine(_spawnCoroutine);
@@ -85,10 +107,10 @@ namespace Game.Scripts.FigureFactory
         
         private IEnumerator SpawnCoroutine()
         {
-            while (true)
+            while (_isSpawning)
             {
                 SpawnRandomFigure();
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f); // TODO: можно сделать настраиваемым частоту спавна
             }
         }
 
