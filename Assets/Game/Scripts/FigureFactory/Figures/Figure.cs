@@ -10,26 +10,21 @@ namespace Game.Scripts.FigureFactory.Figures
         [SerializeField] private float speed = 5f;
 
         private float _currentSpeed;
-        // private Draggable _draggable;
-        
+        private Vector3 _originalPosition;
+
         private void OnEnable()
         {
             _currentSpeed = speed;
-            // _draggable = GetComponent<Draggable>();
-            // _draggable.OnDragStarted += OnDragStarted;
-            // _draggable.OnDragEnded += OnDragEnded;
         }
 
         private void OnDisable()
         {
             _currentSpeed = 0f;
-            // _draggable.OnDragStarted -= OnDragStarted;
-            // _draggable.OnDragEnded -= OnDragEnded;
         }
 
         private void Update()
         {
-            transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime));
+            MoveRight();
         }
 
         public virtual void OnSpawn(Vector3 position)
@@ -42,26 +37,22 @@ namespace Game.Scripts.FigureFactory.Figures
         {
             gameObject.SetActive(false);
         }
-        
-        private void OnDragStarted()
-        {
-            _currentSpeed = 0f;
-        }
-        
-        private void OnDragEnded()
-        {
-            _currentSpeed = speed;
-        }
 
         public void StartDrag()
         {
-            Debug.Log("StartDrag");
+            _originalPosition = transform.position;
             _currentSpeed = 0f;
         }
 
         public void EndDrag()
         {
-            Debug.Log("EndDrag");
+            transform.position = _originalPosition;
+            _currentSpeed = speed;
+        }
+
+        private void MoveRight()
+        {
+            transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime));
         }
     }
 }
