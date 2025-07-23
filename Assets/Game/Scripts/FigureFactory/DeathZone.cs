@@ -1,5 +1,7 @@
 ﻿using System;
 using Game.Scripts.FigureFactory.Figures;
+using Game.Scripts.Infrastructure;
+using Game.Scripts.Model;
 using UnityEngine;
 
 namespace Game.Scripts.FigureFactory
@@ -14,6 +16,8 @@ namespace Game.Scripts.FigureFactory
             if (col.TryGetComponent(out Figure figure))
             {
                 FigureDespawned?.Invoke(figure);
+                EventBus.RaiseEvent<IDecreaseFigureCountEvents>(model => model.DecreaseFigureCount());
+                EventBus.RaiseEvent<IDecreaseHealthEvents>(model => model.DecreaseHealth());
             }
         }
     }

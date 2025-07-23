@@ -11,12 +11,19 @@ namespace Game.Scripts.Infrastructure
 {
     public class GameInstaller : MonoInstaller
     {
-        // public List<Figure> figures;
-        public Transform objectPool;
-        public Square squarePrefab;
-        public Circle circlePrefab;
-        public Triangle trianglePrefab;
-        public Star starPrefab;
+        [Header("References: ")]
+        // [SerializeField] private GameController gameController;
+        [SerializeField] private Transform objectPool;
+        [SerializeField] private Square squarePrefab;
+        [SerializeField] private Circle circlePrefab;
+        [SerializeField] private Triangle trianglePrefab;
+        [SerializeField] private Star starPrefab;
+        
+        [Header("Settings: ")]
+        [SerializeField] private int startScore = 50;
+        [SerializeField] private int startHealth = 25;
+
+        // private Model.Model _model;
 
         public override void InstallBindings()
         {
@@ -24,6 +31,13 @@ namespace Game.Scripts.Infrastructure
             BindFactory<CircleFactory, Circle>(circlePrefab);
             BindFactory<TriangleFactory, Triangle>(trianglePrefab);
             BindFactory<StarFactory, Star>(starPrefab);
+
+            var model = new Model.Model(startScore, startHealth);
+            
+            Container.Bind<IModel>()
+                .FromInstance(model)
+                .AsSingle()
+                .NonLazy();
         }
 
         private void BindFactory<TFactory, TFigure>(TFigure prefab)
@@ -33,7 +47,7 @@ namespace Game.Scripts.Infrastructure
             Container.Bind<IFigureFactory>()
                 .To<TFactory>()
                 .AsSingle()
-                .WithArguments(prefab, 5, objectPool);
+                .WithArguments(prefab, 5, objectPool); // TODO: вынести 5 в настройку
         }
     }
 }

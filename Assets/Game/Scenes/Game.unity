@@ -1050,8 +1050,9 @@ GameObject:
   - component: {fileID: 866499911}
   - component: {fileID: 866499910}
   - component: {fileID: 866499909}
+  - component: {fileID: 866499913}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,6 +1142,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &866499913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866499908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01b957691b3d47419893c1e2648b81e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreView: {fileID: 1899746215}
+  healthView: {fileID: 1204798669}
 --- !u!1 &1025387276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1255,7 @@ GameObject:
   - component: {fileID: 1204798666}
   - component: {fileID: 1204798668}
   - component: {fileID: 1204798667}
+  - component: {fileID: 1204798669}
   m_Layer: 5
   m_Name: HealthPoints
   m_TagString: Untagged
@@ -1305,6 +1321,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1204798665}
   m_CullTransparentMesh: 1
+--- !u!114 &1204798669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204798665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc18ce001c64e5ebc20b2bf77dec020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthText: {fileID: 1724386653}
 --- !u!1 &1241253340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,6 +1774,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1590883402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590883403}
+  - component: {fileID: 1590883404}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1590883403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590883402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.11605, y: -1.57199, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1590883404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590883402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7260ea5da24d6fb38fcc1ee7e818f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1610364367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,6 +2311,8 @@ MonoBehaviour:
   circlePrefab: {fileID: 6488145724266201506, guid: 4d728f0cf173c1c489ee6ed9653e1f13, type: 3}
   trianglePrefab: {fileID: -7965035880195324961, guid: 3c151b426e9dfa3409d6820978e1ba3a, type: 3}
   starPrefab: {fileID: 8927306201728718348, guid: dc0efda51f128d547829c9944d939305, type: 3}
+  startScore: 50
+  startHealth: 25
 --- !u!114 &1789561538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,6 +2538,7 @@ GameObject:
   - component: {fileID: 1899746212}
   - component: {fileID: 1899746214}
   - component: {fileID: 1899746213}
+  - component: {fileID: 1899746215}
   m_Layer: 5
   m_Name: FiguresCount
   m_TagString: Untagged
@@ -2528,6 +2604,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899746211}
   m_CullTransparentMesh: 1
+--- !u!114 &1899746215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899746211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf8baf2b734466d94a5f1d33e32ae3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 171503151}
 --- !u!1 &1907698655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2996,3 +3085,4 @@ SceneRoots:
   - {fileID: 2135129049}
   - {fileID: 362746902}
   - {fileID: 866499912}
+  - {fileID: 1590883403}

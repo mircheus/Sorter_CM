@@ -8,7 +8,7 @@ namespace Game.Scripts.FigureFactory.Figures
     // [RequireComponent(typeof(Draggable))]
     public abstract class Figure : MonoBehaviour, IPoolable, IDraggable
     {
-        [SerializeField] private float speed = 5f;
+        [SerializeField] private float speed = 5f; // TODO: можно задавать скорость при спавне
 
         private float _currentSpeed;
         private Vector3 _originalPosition;

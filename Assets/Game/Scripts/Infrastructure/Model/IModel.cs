@@ -1,0 +1,8 @@
+﻿namespace Game.Scripts.Infrastructure
+{
+    public interface IModel
+    {
+        public int Health { get; }
+        public int FiguresCount { get; }
+    }
+}

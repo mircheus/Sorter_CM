@@ -1,5 +1,7 @@
 ﻿using System;
 using Game.Scripts.FigureFactory.Figures;
+using Game.Scripts.Infrastructure;
+using Game.Scripts.Model;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,6 +28,7 @@ namespace Game.Scripts.Slots
             
             var figureType = figure.GetType();
             FigureDespawned?.Invoke(figure);
+            EventBus.RaiseEvent<IDecreaseFigureCountEvents>(model => model.DecreaseFigureCount());
             
             if (figureType == slotType.GetType())
             {
