@@ -6,5 +6,6 @@ namespace Game.Scripts.Model
     {
         void UpdateHealth(int health);
         void UpdateScore(int score);
+        void UpdateFiguresCount(int figuresCount);
     }
 }

@@ -14,6 +14,7 @@ namespace Game.Scripts.Model
         
         public int Health => _health;
         public int Score => _score;
+        public int FiguresCount => _figuresCount;
 
         // TODO: создавать Model в GameController или какой-то вышестоящей сущности
         public Model(int figuresCount, int health, int score) // TODO: сделать в конструкторе проверку на корректность значений

@@ -7,6 +7,7 @@ namespace Game.Scripts.UI
 {
     public class MainUIController : MonoBehaviour, IUpdateUIEvents, IEndGameEvents
     {
+        [Header("UI views: ")]
         [SerializeField] private ScoreView scoreView;
         [SerializeField] private HealthView healthView;
         
@@ -16,14 +17,21 @@ namespace Game.Scripts.UI
 
         private void OnEnable()
         {
-            // gameOverView.gameObject.SetActive(false);
-            // gameWinView.gameObject.SetActive(false);
+            gameWinView.RestartButtonClicked += OnRestartClicked;
+            gameOverView.RestartButtonClicked += OnRestartClicked;
             EventBus.Subscribe(this);
         }
         
         private void OnDisable()
         {
+            gameWinView.RestartButtonClicked -= OnRestartClicked;
+            gameOverView.RestartButtonClicked -= OnRestartClicked;
             EventBus.Unsubscribe(this);
+        }
+
+        private void OnRestartClicked()
+        {
+            EventBus.RaiseEvent<IRestartGameEvents>(e => e.RestartGame());
         }
 
         public void UpdateHealth(int health)
@@ -35,7 +43,12 @@ namespace Game.Scripts.UI
         {
             scoreView.UpdateScore(score);
         }
-        
+
+        public void UpdateFiguresCount(int figuresCount)
+        {
+            Debug.Log("FiguresCount: " + figuresCount);
+        }
+
         public void OnGameWin(int score)
         {
             gameWinView.SetScore(score);
