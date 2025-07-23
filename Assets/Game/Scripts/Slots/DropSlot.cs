@@ -28,9 +28,10 @@ namespace Game.Scripts.Slots
             
             var figureType = figure.GetType();
             FigureDespawned?.Invoke(figure);
-            EventBus.RaiseEvent<IDecreaseFigureCountEvents>(model => model.DecreaseFigureCount());
+            var isCorrectFigure = figureType == slotType.GetType();
+            EventBus.RaiseEvent<IFigureSnapEvent>(model => model.SnapFigureCorrectly(isCorrectFigure));
             
-            if (figureType == slotType.GetType())
+            if (isCorrectFigure)
             {
                 Debug.Log("<color=green>Figure snapped to slot successfully.</color>");
             }

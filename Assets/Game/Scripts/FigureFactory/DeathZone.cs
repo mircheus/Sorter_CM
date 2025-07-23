@@ -16,8 +16,7 @@ namespace Game.Scripts.FigureFactory
             if (col.TryGetComponent(out Figure figure))
             {
                 FigureDespawned?.Invoke(figure);
-                EventBus.RaiseEvent<IDecreaseFigureCountEvents>(model => model.DecreaseFigureCount());
-                EventBus.RaiseEvent<IDecreaseHealthEvents>(model => model.DecreaseHealth());
+                EventBus.RaiseEvent<IFigureExplodeEvent>(model => model.FigureExploded());
             }
         }
     }

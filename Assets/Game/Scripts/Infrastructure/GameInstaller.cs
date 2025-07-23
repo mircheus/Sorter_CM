@@ -20,10 +20,9 @@ namespace Game.Scripts.Infrastructure
         [SerializeField] private Star starPrefab;
         
         [Header("Settings: ")]
-        [SerializeField] private int startScore = 50;
+        [SerializeField] private int figuresCount = 10;
+        [SerializeField] private int startScore = 0;
         [SerializeField] private int startHealth = 25;
-
-        // private Model.Model _model;
 
         public override void InstallBindings()
         {
@@ -32,7 +31,7 @@ namespace Game.Scripts.Infrastructure
             BindFactory<TriangleFactory, Triangle>(trianglePrefab);
             BindFactory<StarFactory, Star>(starPrefab);
 
-            var model = new Model.Model(startScore, startHealth);
+            var model = new Scripts.Model.Model(figuresCount, startHealth, startScore);
             
             Container.Bind<IModel>()
                 .FromInstance(model)
