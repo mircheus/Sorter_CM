@@ -1,4 +1,4 @@
-﻿namespace Game.Scripts.Infrastructure
+﻿namespace Game.Scripts.Infrastructure.Model
 {
     public interface IModel
     {

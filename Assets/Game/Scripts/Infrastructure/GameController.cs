@@ -1,4 +1,4 @@
-﻿using Game.Scripts.Model;
+﻿using Game.Scripts.Infrastructure.Model;
 using UnityEngine;
 using Zenject;
 

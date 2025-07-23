@@ -1,12 +1,12 @@
 using Game.Scripts.Infrastructure;
-using Game.Scripts.Model;
+using Game.Scripts.Infrastructure.Model;
 using UnityEngine;
 
 namespace Game.Scripts.UI
 {
     public class MainUIController : MonoBehaviour, IUpdateUIEvents
     {
-        [SerializeField] private ScoreView scoreView;
+        [SerializeField] private FiguresCountView figuresCountView;
         [SerializeField] private HealthView healthView;
 
         private void OnEnable()
@@ -26,7 +26,7 @@ namespace Game.Scripts.UI
 
         public void UpdateScore(int score)
         {
-            scoreView.UpdateScore(score);
+            figuresCountView.UpdateScore(score);
         }
     }
 }
