@@ -2664,6 +2664,7 @@ MonoBehaviour:
   figuresCount: 10
   startScore: 0
   startHealth: 25
+  figureConfig: {fileID: 11400000, guid: 71a82b755f482a343a6cf1e817e28e5c, type: 2}
 --- !u!114 &1789561538
 MonoBehaviour:
   m_ObjectHideFlags: 0

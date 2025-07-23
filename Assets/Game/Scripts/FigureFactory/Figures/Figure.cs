@@ -8,16 +8,10 @@ namespace Game.Scripts.FigureFactory.Figures
     // [RequireComponent(typeof(Draggable))]
     public abstract class Figure : MonoBehaviour, IPoolable, IDraggable
     {
-        [SerializeField] private float speed = 5f; // TODO: можно задавать скорость при спавне
-
+        private float _selectedSpeed;
         private float _currentSpeed;
         private Vector3 _originalPosition;
-
-        private void OnEnable()
-        {
-            _currentSpeed = speed;
-        }
-
+        
         private void OnDisable()
         {
             _currentSpeed = 0f;
@@ -27,9 +21,11 @@ namespace Game.Scripts.FigureFactory.Figures
         {
             MoveRight();
         }
-
-        public virtual void OnSpawn(Vector3 position)
+        
+        public virtual void OnSpawn(Vector3 position, float speed)
         {
+            _selectedSpeed = speed;
+            _currentSpeed = _selectedSpeed;
             transform.position = position;
             gameObject.SetActive(true);
         }
@@ -53,7 +49,7 @@ namespace Game.Scripts.FigureFactory.Figures
             }
             
             transform.position = _originalPosition;
-            _currentSpeed = speed;
+            _currentSpeed = _selectedSpeed;
         }
 
         private void MoveRight()

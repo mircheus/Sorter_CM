@@ -23,6 +23,7 @@ namespace Game.Scripts.Infrastructure
         [SerializeField] private int figuresCount = 10;
         [SerializeField] private int startScore = 0;
         [SerializeField] private int startHealth = 25;
+        [SerializeField] private FigureConfig figureConfig;
 
         public override void InstallBindings()
         {
@@ -35,6 +36,10 @@ namespace Game.Scripts.Infrastructure
             
             Container.Bind<IModel>()
                 .FromInstance(model)
+                .AsSingle()
+                .NonLazy();
+            
+            Container.BindInstance(figureConfig)
                 .AsSingle()
                 .NonLazy();
         }

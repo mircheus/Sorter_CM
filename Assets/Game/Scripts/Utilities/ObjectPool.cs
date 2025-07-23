@@ -31,7 +31,6 @@ namespace Game.Scripts.Utilities
                 instance.transform.SetParent(parent);
             }
             
-            instance.OnSpawn(position);
             return instance;
         }
 

@@ -2,6 +2,6 @@
 
 public interface IPoolable
 {
-    void OnSpawn(Vector3 position);
+    void OnSpawn(Vector3 position, float speed);
     void OnDespawn();
 }
