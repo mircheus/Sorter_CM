@@ -4,6 +4,6 @@ namespace Game.Scripts.Model
 {
     public interface IFigureSnapEvent : IGlobalSubscriber
     {
-        void SnapFigureCorrectly(bool isCorrect);
+        void SnapFigure(bool isCorrect);
     }
 }

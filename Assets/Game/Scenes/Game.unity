@@ -2662,7 +2662,7 @@ MonoBehaviour:
   trianglePrefab: {fileID: -7965035880195324961, guid: 3c151b426e9dfa3409d6820978e1ba3a, type: 3}
   starPrefab: {fileID: 8927306201728718348, guid: dc0efda51f128d547829c9944d939305, type: 3}
   figuresCount: 10
-  startScore: 50
+  startScore: 0
   startHealth: 25
 --- !u!114 &1789561538
 MonoBehaviour:

@@ -3,6 +3,6 @@
     public interface IModel
     {
         public int Health { get; }
-        public int FiguresCount { get; }
+        public int Score { get; }
     }
 }

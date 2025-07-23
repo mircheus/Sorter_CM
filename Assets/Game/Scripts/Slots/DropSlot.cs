@@ -22,23 +22,13 @@ namespace Game.Scripts.Slots
         {
             if (figure == null)
             {
-                Debug.LogWarning("Figure transform is null. Cannot snap to slot.");
                 return;
             }
             
             var figureType = figure.GetType();
             FigureDespawned?.Invoke(figure);
             var isCorrectFigure = figureType == slotType.GetType();
-            EventBus.RaiseEvent<IFigureSnapEvent>(model => model.SnapFigureCorrectly(isCorrectFigure));
-            
-            if (isCorrectFigure)
-            {
-                Debug.Log("<color=green>Figure snapped to slot successfully.</color>");
-            }
-            else
-            {
-                Debug.Log($"<color=red>Figure type {figureType} does not match slot type {slotType.GetType()}. Figure will not be snapped.</color>");
-            }
+            EventBus.RaiseEvent<IFigureSnapEvent>(model => model.SnapFigure(isCorrectFigure));
         }
     }
 }

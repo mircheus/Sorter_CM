@@ -11,8 +11,7 @@ namespace Game.Scripts.Model
         private int _figuresCount;
         private int _health;
         private int _score;
-
-        public int FiguresCount => _figuresCount;
+        
         public int Health => _health;
         public int Score => _score;
 
@@ -41,9 +40,28 @@ namespace Game.Scripts.Model
             DecreaseFigureCount();
         }
 
-        public void DecreaseHealth(int amount = 1)
+        public void SnapFigure(bool isCorrect)
         {
-            Debug.Log("DecreaseHealth in Model");
+            if (isCorrect)
+            {
+                IncreaseScore();
+            }
+            else
+            {
+                DecreaseHealth();
+            }
+            
+            DecreaseFigureCount();
+        }
+
+        private void IncreaseScore(int amount = 1)
+        {
+            _score += amount;
+            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_score));
+        }
+
+        private void DecreaseHealth(int amount = 1)
+        {
             _health -= amount;
 
             if (IsHealthDepleted())
@@ -54,10 +72,9 @@ namespace Game.Scripts.Model
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateHealth(_health));
         }
 
-        public void DecreaseFigureCount(int count = 1)
+        private void DecreaseFigureCount(int count = 1)
         {
             _figuresCount -= count;
-            
             
             if (IsFiguresCountDepleted())
             {
@@ -65,12 +82,6 @@ namespace Game.Scripts.Model
             }
             
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_score));
-        }
-
-        public void SnapFigureCorrectly(bool isCorrect)
-        {
-            Debug.Log("Model: SnapFigureCorrectly called with isCorrect = " + isCorrect);
-            _score += isCorrect ? 1 : 0;
         }
 
         private bool IsHealthDepleted()
