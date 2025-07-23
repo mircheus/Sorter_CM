@@ -37,7 +37,6 @@ namespace Game.Scripts.Infrastructure
 
         private void UpdateInitialUI()
         {
-            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateFiguresCount(_model.FiguresCount));
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateHealth(_model.Health));
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_model.Score));
         }

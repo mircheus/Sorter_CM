@@ -31,7 +31,7 @@ namespace Game.Scripts.Infrastructure
             BindFactory<TriangleFactory, Triangle>(trianglePrefab);
             BindFactory<StarFactory, Star>(starPrefab);
 
-            var model = new Scripts.Model.Model(figuresCount, startHealth, startScore);
+            var model = new Model.Model(figuresCount, startHealth, startScore);
             
             Container.Bind<IModel>()
                 .FromInstance(model)

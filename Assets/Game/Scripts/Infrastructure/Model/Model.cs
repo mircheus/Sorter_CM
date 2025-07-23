@@ -1,10 +1,8 @@
 ﻿using System;
 using Game.Scripts.FigureFactory;
-using Game.Scripts.Infrastructure;
-using Game.Scripts.Infrastructure.Model;
-using UnityEngine;
+using Game.Scripts.Model;
 
-namespace Game.Scripts.Model
+namespace Game.Scripts.Infrastructure.Model
 {
     public class Model : IModel, IFigureExplodeEvent, IFigureSnapEvent, IDisposable
     {
@@ -81,7 +79,7 @@ namespace Game.Scripts.Model
             {
                 EventBus.RaiseEvent<IEndGameEvents>(ui => ui.OnGameWin(_score));
             }
-            
+            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateFiguresCount(_figuresCount));
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_score));
         }
 
