@@ -1,7 +1,9 @@
 ﻿using System;
+using Game.Scripts.FigureFactory;
+using Game.Scripts.Infrastructure;
 using UnityEngine;
 
-namespace Game.Scripts.Infrastructure.Model
+namespace Game.Scripts.Model
 {
     public class Model : IModel, IDecreaseHealthEvents, IDecreaseFigureCountEvents, IDisposable
     {

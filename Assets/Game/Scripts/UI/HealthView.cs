@@ -5,11 +5,11 @@ namespace Game.Scripts.UI
 {
     public class HealthView : MonoBehaviour
     {
-        [SerializeField] private TMP_Text healthPoints;
+        [SerializeField] private TMP_Text healthText;
 
         public void UpdateHealth(int health)
         {
-            healthPoints.text = health.ToString();
+            healthText.text = health.ToString();
         }
     }
 }

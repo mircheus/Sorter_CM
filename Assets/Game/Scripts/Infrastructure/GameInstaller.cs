@@ -4,7 +4,6 @@ using System.Reflection;
 using Game.Scripts.FigureFactory;
 using Game.Scripts.FigureFactory.Factories;
 using Game.Scripts.FigureFactory.Figures;
-using Game.Scripts.Infrastructure.Model;
 using UnityEngine;
 using Zenject;
 
