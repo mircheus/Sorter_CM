@@ -1,9 +1,11 @@
 using Game.Scripts.FigureFactory.Figures;
+using Game.Scripts.Infrastructure;
+using Game.Scripts.Spawner;
 using Game.Scripts.Utilities;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Scripts.Infrastructure
+namespace Game.Scripts
 {
     public class GameInstaller : MonoInstaller
     {
@@ -13,6 +15,7 @@ namespace Game.Scripts.Infrastructure
         [SerializeField] private GameController gameController;
         [SerializeField] private FiguresList figuresList;
         [SerializeField] private Camera mainCamera;
+        [SerializeField] private SpawnerSettings spawnerSettings;
 
         public override void InstallBindings()
         {
@@ -31,6 +34,11 @@ namespace Game.Scripts.Infrastructure
             
             Container.Bind<FiguresList>()
                 .FromInstance(figuresList)
+                .AsSingle()
+                .NonLazy();
+            
+            Container.Bind<SpawnerSettings>()
+                .FromInstance(spawnerSettings)
                 .AsSingle()
                 .NonLazy();
         }

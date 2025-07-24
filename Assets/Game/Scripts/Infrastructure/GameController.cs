@@ -12,7 +12,7 @@ namespace Game.Scripts.Infrastructure
         [SerializeField] private int figuresCount;
         [SerializeField] private int startHealth = 100;
         [SerializeField] private int startScore = 0;
-            // var model = new Model.Model(figuresCount, startHealth, startScore);
+        
         private IModel _model;
 
         public int FiguresCount => _model.FiguresCount;

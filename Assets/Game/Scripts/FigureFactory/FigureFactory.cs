@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Utilities;
-using Zenject;
 
 namespace Game.Scripts.FigureFactory
 {
