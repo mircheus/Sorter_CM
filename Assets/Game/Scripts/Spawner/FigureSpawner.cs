@@ -86,19 +86,13 @@ namespace Game.Scripts.Spawner
         private void Spawn(FigureType figureType, Vector3 position)
         {
             var figure = _figureFactory.CreateFigure(figureType);
-            figure.gameObject.SetActive(true);
             float speed = GetRandomSpeed();
             figure.OnSpawn(position, speed); // TODO: избавиться от speed здесь
         }
 
-        private void OnFigureDespawned(Figure obj)
+        private void OnFigureDespawned(Figure figure)
         {
-            // var type = obj.GetType();
-            //
-            // if (_factories.TryGetValue(type, out var factory))
-            // {
-            //     factory.ReturnToPool(obj);
-            // }
+            _figureFactory.ReturnFigureToPool(figure);
         }
 
         private IEnumerator SpawnCoroutine()

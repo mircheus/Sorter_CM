@@ -2668,6 +2668,7 @@ MonoBehaviour:
   gameController: {fileID: 1590883404}
   figuresList: {fileID: 11400000, guid: 5584063b64ca620488802cba70045a2b, type: 2}
   mainCamera: {fileID: 508967233}
+  spawnerSettings: {fileID: 11400000, guid: a06b366bea2be2146bd396a03b3746b7, type: 2}
 --- !u!114 &1789561538
 MonoBehaviour:
   m_ObjectHideFlags: 0

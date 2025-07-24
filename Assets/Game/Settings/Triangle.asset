@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0b981fcd924e12a785d07f09557ffc, type: 3}
   m_Name: Triangle
   m_EditorClassIdentifier: 
-  figureSprite: {fileID: 0}
+  figureSprite: {fileID: -4018085181264604935, guid: 0e18025960aca06418328f3b907206c2, type: 3}

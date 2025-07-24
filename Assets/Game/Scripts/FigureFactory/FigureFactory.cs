@@ -21,5 +21,10 @@ namespace Game.Scripts.FigureFactory
             figure.Initialize(figureType);
             return figure;
         }
+        
+        public void ReturnFigureToPool(Figure figure)
+        {
+            _figurePool.ReturnToPool(figure);
+        }
     }
 }
