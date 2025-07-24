@@ -5,12 +5,18 @@ using UnityEngine;
 
 namespace Game.Scripts.FigureFactory.Figures
 {
-    // [RequireComponent(typeof(Draggable))]
-    public abstract class Figure : MonoBehaviour, IPoolable, IDraggable
+    public class Figure : MonoBehaviour, IPoolable, IDraggable
     {
+        [SerializeField] private SpriteRenderer spriteRenderer; 
+        
         private float _selectedSpeed;
         private float _currentSpeed;
         private Vector3 _originalPosition;
+        
+        public void Initialize(FigureType figureType)
+        {
+            spriteRenderer.sprite = figureType.FigureSprite;
+        }
         
         private void OnDisable()
         {

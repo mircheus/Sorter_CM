@@ -1,10 +1,12 @@
-﻿namespace Game.Scripts.FigureFactory.Figures
+﻿using UnityEngine;
+
+namespace Game.Scripts.FigureFactory.Figures
 {
-    public enum FigureType
+    [CreateAssetMenu(fileName = "FigureType", menuName = "Game/FigureType", order = 1)]
+    public class FigureType : ScriptableObject
     {
-        Square,
-        Circle,
-        Triangle,
-        Star
+        [SerializeField] private Sprite figureSprite;
+
+        public Sprite FigureSprite => figureSprite;
     }
 }
