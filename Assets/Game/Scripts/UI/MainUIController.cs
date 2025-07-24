@@ -46,7 +46,7 @@ namespace Game.Scripts.UI
 
         public void UpdateFiguresCount(int figuresCount)
         {
-            Debug.Log("FiguresCount: " + figuresCount);
+            // Debug.Log("FiguresCount: " + figuresCount);
         }
 
         public void OnGameWin(int score)

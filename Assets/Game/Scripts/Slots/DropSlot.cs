@@ -7,15 +7,27 @@ using UnityEngine.Events;
 
 namespace Game.Scripts.Slots
 {
-    public class DropSlot : MonoBehaviour
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class DropSlot : MonoBehaviour // TODO: можно в SlotSpawner это всё закинуть
     {
-        [SerializeField] private Figure slotType;
+        [Header("References: ")]
+        [SerializeField] private FigureType slotType;
+
+        private SpriteRenderer _spriteRenderer;
         
-        public event UnityAction<Figure> FigureDespawned;
+        public event UnityAction<Figure> FigureDespawned; // TODO: переделать под EventBus
 
         private void Awake()
         {
-            slotType.gameObject.SetActive(false);
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        
+        private void OnEnable()
+        {
+            if (_spriteRenderer.sprite == null)
+            {
+                _spriteRenderer.sprite = slotType.FigureSprite;
+            }
         }
 
         public void SnapFigureToSlot(Figure figure)
@@ -25,9 +37,8 @@ namespace Game.Scripts.Slots
                 return;
             }
             
-            var figureType = figure.GetType();
             FigureDespawned?.Invoke(figure);
-            var isCorrectFigure = figureType == slotType.GetType();
+            var isCorrectFigure = slotType == figure.FigureType;
             EventBus.RaiseEvent<IFigureSnapEvent>(model => model.SnapFigure(isCorrectFigure));
         }
     }

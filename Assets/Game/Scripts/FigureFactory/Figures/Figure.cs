@@ -12,15 +12,20 @@ namespace Game.Scripts.FigureFactory.Figures
         private float _selectedSpeed;
         private float _currentSpeed;
         private Vector3 _originalPosition;
+        private FigureType _figureType;
+
+        public FigureType FigureType => _figureType;
         
         public void Initialize(FigureType figureType)
         {
             spriteRenderer.sprite = figureType.FigureSprite;
+            _figureType = figureType;
         }
         
         private void OnDisable()
         {
             _currentSpeed = 0f;
+            _figureType = null;
         }
 
         private void Update()
