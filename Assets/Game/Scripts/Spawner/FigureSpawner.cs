@@ -12,8 +12,8 @@ namespace Game.Scripts.Spawner
     {
         [Header("References: ")] 
         [SerializeField] private DeathZone deathZone;
-        [SerializeField] private DropSlot[] dropSlots;
-        [SerializeField] private Transform[] spawnPoints;
+        [SerializeField] private DropSlot[] dropSlots; 
+        [SerializeField] private MoveLine[] moveLines;
 
         private Coroutine _spawnCoroutine;
         private FiguresList _figuresList;
@@ -83,11 +83,12 @@ namespace Game.Scripts.Spawner
             _spawnCoroutine = StartCoroutine(SpawnCoroutine());
         }
 
-        private void Spawn(FigureType figureType, Vector3 position)
+        private void Spawn(FigureType figureType, Vector3 position, Transform parent = null)
         {
             var figure = _figureFactory.CreateFigure(figureType);
+            figure.transform.SetParent(parent);
             float speed = GetRandomSpeed();
-            figure.OnSpawn(position, speed); // TODO: избавиться от speed здесь
+            figure.OnSpawn(position, speed);
         }
 
         private void OnFigureDespawned(Figure figure)
@@ -109,7 +110,7 @@ namespace Game.Scripts.Spawner
         {
             int randomFigureIndex = GetRandomFigureIndex();
             var randomLineIndex = GetRandomLineIndex();
-            Spawn(_figuresList.Figures[randomFigureIndex], spawnPoints[randomLineIndex].position);
+            Spawn(_figuresList.Figures[randomFigureIndex], moveLines[randomLineIndex].StartPoint.position, moveLines[randomLineIndex].transform);
         }
 
         private float GetRandomTimeout()
@@ -129,7 +130,7 @@ namespace Game.Scripts.Spawner
 
         private int GetRandomLineIndex()
         {
-            return Random.Range(0, spawnPoints.Length);
+            return Random.Range(0, moveLines.Length);
         }
     }
 }

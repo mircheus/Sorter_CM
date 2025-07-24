@@ -7,9 +7,10 @@ namespace Game.Scripts.FigureFactory.Figures
 {
     public class Figure : MonoBehaviour, IPoolable, IDraggable
     {
+        [Header("References: ")]
         [SerializeField] private SpriteRenderer spriteRenderer; 
         
-        private float _selectedSpeed;
+        private float _movementSpeed;
         private float _currentSpeed;
         private Vector3 _originalPosition;
         private FigureType _figureType;
@@ -35,8 +36,8 @@ namespace Game.Scripts.FigureFactory.Figures
         
         public virtual void OnSpawn(Vector3 position, float speed)
         {
-            _selectedSpeed = speed;
-            _currentSpeed = _selectedSpeed;
+            _movementSpeed = speed;
+            _currentSpeed = _movementSpeed;
             transform.position = position;
             gameObject.SetActive(true);
         }
@@ -60,7 +61,7 @@ namespace Game.Scripts.FigureFactory.Figures
             }
             
             transform.position = _originalPosition;
-            _currentSpeed = _selectedSpeed;
+            _currentSpeed = _movementSpeed;
         }
 
         private void MoveRight()
