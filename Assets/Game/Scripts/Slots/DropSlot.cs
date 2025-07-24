@@ -37,9 +37,9 @@ namespace Game.Scripts.Slots
                 return;
             }
             
-            FigureDespawned?.Invoke(figure);
             var isCorrectFigure = slotType == figure.FigureType;
             EventBus.RaiseEvent<IFigureSnapEvent>(model => model.SnapFigure(isCorrectFigure));
+            FigureDespawned?.Invoke(figure);
         }
     }
 }
