@@ -1973,42 +1973,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054679ad614a4da1a2fc13dd1ad7e868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touch:
-    m_Name: Touch
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ff92eb51-9af9-4ce6-996e-6254a55a49a7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 67b0182e-de8f-43a7-9f89-b6166475217a
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Touch
-      m_Flags: 0
-    m_Flags: 0
-  screenPosition:
-    m_Name: Screen Position
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: aaf8ce2f-4c7f-45dc-84f0-4f32c9122701
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: a14ec640-102a-4e25-88ef-13c8f6473f6a
-      m_Path: <Pointer>/position
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Screen Position
-      m_Flags: 0
-    m_Flags: 0
+  touch: {fileID: 8301688350458322969, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  screenPosition: {fileID: -8368569945833768507, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   dragSpeed: 0.05
   offsetVector: {x: 0, y: 0, z: 0}
+  raycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastDistance: 100
 --- !u!1 &1877867504
 GameObject:
   m_ObjectHideFlags: 0

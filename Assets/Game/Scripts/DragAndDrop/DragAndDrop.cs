@@ -1,45 +1,53 @@
 ﻿using System.Collections;
+using Game.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
-namespace Game.Scripts.Utilities
+namespace Game.Scripts.DragAndDrop
 {
     public class DragAndDrop : MonoBehaviour
     {
-        [SerializeField] private InputAction touch;
-        [SerializeField] private InputAction screenPosition;
+        [Header("References: ")]
+        [SerializeField] private InputActionReference touch;
+        [SerializeField] private InputActionReference screenPosition;
+        
+        [Header("Settings: ")]
         [SerializeField] private float dragSpeed;
         [SerializeField] private Vector3 offsetVector;
+        [SerializeField] private LayerMask raycastLayerMask;
+        [SerializeField] private float raycastDistance = 100f;
     
         private Vector3 _velocity = Vector3.zero;
         private Camera _mainCamera;
         private bool _isDragging = false;
 
-        private void Awake()
+        [Inject]
+        public void Construct(Camera mainCamera)
         {
-            _mainCamera = Camera.main;
+            _mainCamera = mainCamera;
         }
 
         private void OnEnable()
         {
-            touch.Enable();
-            screenPosition.Enable();
-            touch.performed += OnTouchPressed;
-            touch.canceled += OnTouchReleased;
+            touch.action.Enable();
+            touch.action.performed += OnTouchPressed;
+            touch.action.canceled += OnTouchReleased;
+            screenPosition.action.Enable();
         }
 
         private void OnDisable()
         {
-            touch.performed -= OnTouchPressed;
-            touch.canceled -= OnTouchReleased;
-            touch.Disable();
-            screenPosition.Disable();
+            touch.action.Disable();
+            touch.action.performed -= OnTouchPressed;
+            touch.action.canceled -= OnTouchReleased;
+            screenPosition.action.Disable();
         }
     
         private void OnTouchPressed(InputAction.CallbackContext context)
         {
-            Ray ray = _mainCamera.ScreenPointToRay(screenPosition.ReadValue<Vector2>());
-            RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
+            Ray ray = _mainCamera.ScreenPointToRay(screenPosition.action.ReadValue<Vector2>());
+            RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray, raycastDistance, raycastLayerMask);
 
             if (hit2D.collider != null && hit2D.collider.gameObject.TryGetComponent(out IDraggable iDragComponent))
             {
@@ -64,7 +72,7 @@ namespace Game.Scripts.Utilities
               
             while (_isDragging)
             { 
-                Ray ray = _mainCamera.ScreenPointToRay(screenPosition.ReadValue<Vector2>());
+                Ray ray = _mainCamera.ScreenPointToRay(screenPosition.action.ReadValue<Vector2>());
                 Vector3 tempRay = ray.GetPoint(initialDistance);
                 Vector3 target = new Vector3(tempRay.x, tempRay.y, initialCoordinateZ);
                 target += offsetVector;

@@ -41,6 +41,11 @@ namespace Game.Scripts
                 .FromInstance(spawnerSettings)
                 .AsSingle()
                 .NonLazy();
+
+            Container.Bind<Camera>()
+                .FromInstance(mainCamera)
+                .AsSingle()
+                .NonLazy();
         }
     }
 }
