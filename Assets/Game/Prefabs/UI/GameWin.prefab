@@ -116,6 +116,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameWin
       objectReference: {fileID: 0}
+    - target: {fileID: 2058055762497627201, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_text
+      value: Congratulations! \nYour score
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137311691665028912, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6174053
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137311691665028912, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137311691665028912, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6048344
+      objectReference: {fileID: 0}
     - target: {fileID: 4742183135100850683, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
       propertyPath: m_Name
       value: ScoreText

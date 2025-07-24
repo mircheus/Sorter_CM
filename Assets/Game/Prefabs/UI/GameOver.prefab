@@ -116,6 +116,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOver
       objectReference: {fileID: 0}
+    - target: {fileID: 2058055762497627201, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_text
+      value: Game Over
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137311691665028912, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6198148
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137311691665028912, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6198148
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137311691665028912, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9924528
+      objectReference: {fileID: 0}
     - target: {fileID: 5483191614672573459, guid: 59a905bc922e29246a368a70de9b07d7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

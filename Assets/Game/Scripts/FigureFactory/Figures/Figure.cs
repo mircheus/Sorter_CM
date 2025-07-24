@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Scripts.FigureFactory.Figures
 {
-    public class Figure : MonoBehaviour, IPoolable, IDraggable
+    public class Figure : MonoBehaviour, IPoolable, IDraggable, IPausable
     {
         [Header("References: ")]
         [SerializeField] private SpriteRenderer spriteRenderer; 
@@ -16,15 +16,15 @@ namespace Game.Scripts.FigureFactory.Figures
         private FigureType _figureType;
 
         public FigureType FigureType => _figureType;
-        
-        public void Initialize(FigureType figureType)
+
+        private void OnEnable()
         {
-            spriteRenderer.sprite = figureType.FigureSprite;
-            _figureType = figureType;
+            EventBus.Subscribe(this);
         }
-        
+
         private void OnDisable()
         {
+            EventBus.Unsubscribe(this);
             _currentSpeed = 0f;
             _figureType = null;
         }
@@ -33,7 +33,13 @@ namespace Game.Scripts.FigureFactory.Figures
         {
             MoveRight();
         }
-        
+
+        public void Initialize(FigureType figureType)
+        {
+            spriteRenderer.sprite = figureType.FigureSprite;
+            _figureType = figureType;
+        }
+
         public virtual void OnSpawn(Vector3 position, float speed)
         {
             _movementSpeed = speed;
@@ -63,16 +69,26 @@ namespace Game.Scripts.FigureFactory.Figures
             transform.position = _originalPosition;
             _currentSpeed = _movementSpeed;
         }
+        
+        public void Pause()
+        {
+            _currentSpeed = 0f;
+        }
+
+        public void Resume()
+        {
+            _currentSpeed = _movementSpeed;
+        }
 
         private void MoveRight()
         {
-            transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime));
+            transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime)); // TODO: можно вынести вектор направление в настройку
         }
         
         private bool TrySnapToSlot()
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.5f);
-            
+
             foreach (var hit in hits)
             {
                 if (hit.TryGetComponent(out DropSlot dropSlot))

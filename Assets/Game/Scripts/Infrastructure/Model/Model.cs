@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Scripts.FigureFactory;
+using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Model;
 
 namespace Game.Scripts.Infrastructure.Model
@@ -65,7 +66,8 @@ namespace Game.Scripts.Infrastructure.Model
 
             if (IsHealthDepleted())
             {
-                EventBus.RaiseEvent<IEndGameEvents>(ui => ui.OnGameOver());
+                EventBus.RaiseEvent<IEndGameEvents>(ui => ui.OnGameLoose());
+                EventBus.RaiseEvent<IPausable>(game => game.Pause());
             }
 
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateHealth(_health));
@@ -78,7 +80,9 @@ namespace Game.Scripts.Infrastructure.Model
             if (IsFiguresCountDepleted())
             {
                 EventBus.RaiseEvent<IEndGameEvents>(ui => ui.OnGameWin(_score));
+                EventBus.RaiseEvent<IPausable>(game => game.Pause());
             }
+            
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateFiguresCount(_figuresCount));
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_score));
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace Game.Scripts.DragAndDrop
 {
-    public class DragAndDrop : MonoBehaviour
+    public class DragAndDrop : MonoBehaviour, IPausable
     {
         [Header("References: ")]
         [SerializeField] private InputActionReference touch;
@@ -34,6 +35,7 @@ namespace Game.Scripts.DragAndDrop
             touch.action.performed += OnTouchPressed;
             touch.action.canceled += OnTouchReleased;
             screenPosition.action.Enable();
+            EventBus.Subscribe(this);
         }
 
         private void OnDisable()
@@ -42,6 +44,7 @@ namespace Game.Scripts.DragAndDrop
             touch.action.performed -= OnTouchPressed;
             touch.action.canceled -= OnTouchReleased;
             screenPosition.action.Disable();
+            EventBus.Unsubscribe(this);
         }
     
         private void OnTouchPressed(InputAction.CallbackContext context)
@@ -49,9 +52,9 @@ namespace Game.Scripts.DragAndDrop
             Ray ray = _mainCamera.ScreenPointToRay(screenPosition.action.ReadValue<Vector2>());
             RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray, raycastDistance, raycastLayerMask);
 
-            if (hit2D.collider != null && hit2D.collider.gameObject.TryGetComponent(out IDraggable iDragComponent))
+            if (hit2D.collider != null && hit2D.collider.gameObject.TryGetComponent(out IDraggable draggable))
             {
-                iDragComponent.StartDrag();
+                draggable.StartDrag();
                 StartCoroutine(DragUpdate(hit2D.collider.gameObject));
             }
         }
@@ -81,6 +84,18 @@ namespace Game.Scripts.DragAndDrop
             }
               
             iDraggable?.EndDrag();
+        }
+
+        public void Pause()
+        {
+            touch.action.Disable();
+            screenPosition.action.Disable();
+        }
+
+        public void Resume()
+        {
+            touch.action.Enable();
+            screenPosition.action.Enable();
         }
     }
 }

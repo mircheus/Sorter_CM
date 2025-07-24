@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Game.Scripts.FigureFactory;
 using Game.Scripts.FigureFactory.Figures;
+using Game.Scripts.Model;
 using Game.Scripts.Slots;
 using UnityEngine;
 using Zenject;
@@ -8,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Scripts.Spawner
 {
-    public class FigureSpawner : MonoBehaviour
+    public class FigureSpawner : MonoBehaviour, IEndGameEvents, IPausable
     {
         [Header("References: ")] 
         [SerializeField] private DeathZone deathZone;
@@ -45,6 +46,8 @@ namespace Game.Scripts.Spawner
                     slot.FigureDespawned += OnFigureDespawned;
                 }
             }
+            
+            EventBus.Subscribe(this);
         }
 
         private void OnDisable()
@@ -69,6 +72,7 @@ namespace Game.Scripts.Spawner
             }
 
             _isSpawning = false; // TODO: можно отдать на контроль вышестоящей сущности
+            EventBus.Unsubscribe(this);
         }
 
         private void Start()
@@ -131,6 +135,26 @@ namespace Game.Scripts.Spawner
         private int GetRandomLineIndex()
         {
             return Random.Range(0, moveLines.Length);
+        }
+
+        public void OnGameWin(int score)
+        {
+            _isSpawning = false;
+        }
+
+        public void OnGameLoose()
+        {
+            _isSpawning = false;
+        }
+
+        public void Pause()
+        {
+            _isSpawning = false;
+        }
+
+        public void Resume()
+        {
+            _isSpawning = true;
         }
     }
 }

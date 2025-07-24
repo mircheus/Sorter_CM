@@ -1630,7 +1630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7260ea5da24d6fb38fcc1ee7e818f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  figuresCount: 50
+  figuresCount: 2
   startHealth: 100
   startScore: 0
 --- !u!114 &1683596410 stripped

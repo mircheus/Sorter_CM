@@ -1,8 +1,14 @@
-namespace Game.Scripts.Infrastructure.Model
+namespace Game.Scripts.Model
 {
     public interface IEndGameEvents : IGlobalSubscriber
     {
         void OnGameWin(int score);
-        void OnGameOver();
+        void OnGameLoose();
+    }
+    
+    public interface IEndGameEventsPublisher
+    {
+        void PublishGameWin(int score);
+        void PublishGameLoose();
     }
 }

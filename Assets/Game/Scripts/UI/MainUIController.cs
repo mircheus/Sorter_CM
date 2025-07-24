@@ -56,7 +56,7 @@ namespace Game.Scripts.UI
             gameWinView.Show();
         }
 
-        public void OnGameOver()
+        public void OnGameLoose()
         {
             gameOverView.gameObject.SetActive(true);
             gameOverView.Show();
