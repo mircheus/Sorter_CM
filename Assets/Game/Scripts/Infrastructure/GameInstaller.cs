@@ -16,6 +16,7 @@ namespace Game.Scripts
         [SerializeField] private FiguresList figuresList;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private SpawnerSettings spawnerSettings;
+        [SerializeField] private LevelSettings levelSettings;
 
         public override void InstallBindings()
         {
@@ -44,6 +45,11 @@ namespace Game.Scripts
 
             Container.Bind<Camera>()
                 .FromInstance(mainCamera)
+                .AsSingle()
+                .NonLazy();
+
+            Container.Bind<LevelSettings>()
+                .FromInstance(levelSettings)
                 .AsSingle()
                 .NonLazy();
         }

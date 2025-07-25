@@ -1,5 +1,6 @@
 using Game.Scripts.Events;
 using Game.Scripts.Infrastructure;
+using Game.Scripts.UI.Views;
 using UnityEngine;
 
 namespace Game.Scripts.UI

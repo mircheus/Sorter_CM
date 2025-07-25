@@ -14,7 +14,7 @@ namespace Game.Scripts.Infrastructure
         public int Score => _score;
         public int FiguresCount => _figuresCount;
         
-        public Model(int figuresCount, int health, int score) 
+        public Model(int figuresCount, int health, int score = 0) 
         {
             Initialize(figuresCount, health, score);
         }

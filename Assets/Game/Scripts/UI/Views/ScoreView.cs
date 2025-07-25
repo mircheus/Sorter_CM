@@ -2,7 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace Game.Scripts.UI
+namespace Game.Scripts.UI.Views
 {
     public class ScoreView :MonoBehaviour
     {
