@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.Scripts
 {
     public static class EventBus
     {
         private static readonly Dictionary<Type, SubscribersList<IGlobalSubscriber>> Subscribers = new();
+        
+        public static Dictionary<Type, SubscribersList<IGlobalSubscriber>> SubscribersList => Subscribers;
 
         public static void Subscribe(IGlobalSubscriber subscriber)
         {

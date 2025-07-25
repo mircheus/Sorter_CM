@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Scripts.FigureFactory.Figures
 {
-    public class Figure : MonoBehaviour, IPoolable, IDraggable, IPausable
+    public class Figure : MonoBehaviour, IPoolable, IDraggable
     {
         [Header("References: ")]
         [SerializeField] private SpriteRenderer spriteRenderer; 
@@ -15,23 +15,18 @@ namespace Game.Scripts.FigureFactory.Figures
         private Vector3 _originalPosition;
         private FigureType _figureType;
 
+        public event Action<Figure> Despawned;
         public FigureType FigureType => _figureType;
-
-        private void OnEnable()
-        {
-            EventBus.Subscribe(this);
-        }
-
-        private void OnDisable()
-        {
-            EventBus.Unsubscribe(this);
-            _currentSpeed = 0f;
-            _figureType = null;
-        }
 
         private void Update()
         {
             MoveRight();
+        }
+
+        private void OnDisable()
+        {
+            _currentSpeed = 0f;
+            _figureType = null;
         }
 
         public void Initialize(FigureType figureType)
@@ -50,6 +45,7 @@ namespace Game.Scripts.FigureFactory.Figures
 
         public virtual void OnDespawn()
         {
+            Despawned?.Invoke(this);
             gameObject.SetActive(false);
         }
 
@@ -69,17 +65,17 @@ namespace Game.Scripts.FigureFactory.Figures
             transform.position = _originalPosition;
             _currentSpeed = _movementSpeed;
         }
-        
-        public void Pause()
-        {
-            _currentSpeed = 0f;
-        }
 
-        public void Resume()
+        public void ResumeMovement()
         {
             _currentSpeed = _movementSpeed;
         }
 
+        public void StopMovement()
+        {
+            _currentSpeed = 0;
+        }
+        
         private void MoveRight()
         {
             transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime)); // TODO: можно вынести вектор направление в настройку

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Game.Scripts.FigureFactory;
 using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Model;
@@ -9,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Scripts.Spawner
 {
-    public class FigureSpawner : MonoBehaviour, IEndGameEvents, IPausable
+    public class FigureSpawner : MonoBehaviour, IEndGameEvents, IPausable, IResettable
     {
         [Header("References: ")]
         [SerializeField] private DropSlot[] dropSlots; 
@@ -23,8 +25,7 @@ namespace Game.Scripts.Spawner
         private SpawnerSettings _spawnerSettings;
 
         [Inject]
-        public void Construct(FigureFactory.FigureFactory factory, FiguresList figuresList,
-            SpawnerSettings spawnerSettings)
+        public void Construct(FigureFactory.FigureFactory factory, FiguresList figuresList, SpawnerSettings spawnerSettings)
         {
             _figureFactory = factory;
             _figuresList = figuresList;
@@ -76,8 +77,50 @@ namespace Game.Scripts.Spawner
 
         private void Start()
         {
-            _isSpawning = true; 
+            StartSpawn();
+        }
+        
+        public void Pause()
+        {
+            _isSpawning = false;
+        }
 
+        public void Resume()
+        {
+            _isSpawning = true;
+            StartSpawn();
+        }
+
+        public void ResetState()
+        {
+            List<Figure> figures = new List<Figure>();
+
+            foreach (var moveLine in moveLines)
+            {
+                figures.AddRange(moveLine.Figures);
+                moveLine.ClearAssignedFigures();
+            }
+
+            foreach (var figure in figures)
+            {
+                _figureFactory.ReturnFigureToPool(figure);
+            }
+        }
+        
+        public void OnGameWin(int score)
+        {
+            _isSpawning = false;
+        }
+
+        public void OnGameLoose()
+        {
+            _isSpawning = false;
+        }
+
+        private void StartSpawn()
+        {
+            _isSpawning = true;
+            
             if (_spawnCoroutine != null)
             {
                 StopCoroutine(_spawnCoroutine);
@@ -86,12 +129,12 @@ namespace Game.Scripts.Spawner
             _spawnCoroutine = StartCoroutine(SpawnCoroutine());
         }
 
-        private void Spawn(FigureType figureType, Vector3 position, Transform parent = null)
+        private void Spawn(FigureType figureType, MoveLine moveLine)
         {
             var figure = _figureFactory.CreateFigure(figureType);
-            figure.transform.SetParent(parent);
+            moveLine.AssignFigure(figure);
             float speed = GetRandomSpeed();
-            figure.OnSpawn(position, speed);
+            figure.OnSpawn(moveLine.StartPoint.position, speed);
         }
 
         private void OnFigureDespawned(Figure figure)
@@ -113,7 +156,7 @@ namespace Game.Scripts.Spawner
         {
             int randomFigureIndex = GetRandomFigureIndex();
             var randomLineIndex = GetRandomLineIndex();
-            Spawn(_figuresList.Figures[randomFigureIndex], moveLines[randomLineIndex].StartPoint.position, moveLines[randomLineIndex].transform);
+            Spawn(_figuresList.Figures[randomFigureIndex], moveLines[randomLineIndex]);
         }
 
         private float GetRandomTimeout()
@@ -134,26 +177,6 @@ namespace Game.Scripts.Spawner
         private int GetRandomLineIndex()
         {
             return Random.Range(0, moveLines.Length);
-        }
-
-        public void OnGameWin(int score)
-        {
-            _isSpawning = false;
-        }
-
-        public void OnGameLoose()
-        {
-            _isSpawning = false;
-        }
-
-        public void Pause()
-        {
-            _isSpawning = false;
-        }
-
-        public void Resume()
-        {
-            _isSpawning = true;
         }
     }
 }

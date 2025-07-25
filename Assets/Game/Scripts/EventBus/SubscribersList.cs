@@ -4,7 +4,7 @@ namespace Game.Scripts
 {
     public class SubscribersList<TSubscriber> where TSubscriber : class
     {
-        private bool _needsCleanUp = false;
+        private bool _needsCleanUp =  false;
 
         public bool Executing;
         public readonly List<TSubscriber> List = new List<TSubscriber>();

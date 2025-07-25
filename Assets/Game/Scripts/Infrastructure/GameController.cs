@@ -1,11 +1,11 @@
 ﻿using System;
-using Game.Scripts.Infrastructure.Model;
+using Game.Scripts.FigureFactory.Figures;
+using Game.Scripts.Infrastructure;
 using Game.Scripts.Model;
+using Game.Scripts.Spawner;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
-namespace Game.Scripts.Infrastructure
+namespace Game.Scripts
 {
     public class GameController : MonoBehaviour, IRestartGameEvents
     {
@@ -13,9 +13,7 @@ namespace Game.Scripts.Infrastructure
         [SerializeField] private int startHealth = 100;
         [SerializeField] private int startScore = 0;
         
-        private IModel _model;
-
-        public int FiguresCount => _model.FiguresCount;
+        private Model.Model _model;
 
         private void OnEnable()
         {
@@ -26,31 +24,26 @@ namespace Game.Scripts.Infrastructure
         {
             EventBus.Unsubscribe(this);
         }
-
-        // [Inject]
-        // public void Construct(IModel model)
-        // {
-        //     _model = model;
-        //     Debug.Log("Injected Model in GameController");
-        // }
-
+        
         private void Start()
         {
             _model = new Model.Model(figuresCount, startHealth, startScore);
-            UpdateInitialUI();
-        }
-
-        private void UpdateInitialUI()
-        {
-            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateHealth(_model.Health));
-            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_model.Score));
+            UpdateUI();
         }
 
         public void RestartGame()
         {
-            IDisposable modelDisposable = _model as IDisposable;
-            if (modelDisposable != null) modelDisposable.Dispose(); // TODO: сделать Dispose через отдельный сервис
-            SceneManager.LoadScene(Constants.GameLevel); // TODO: Сделать перезагрузку уровня через reset а не через загрузку сцены
+            _model.ResetModel(figuresCount, startHealth, startScore);
+            UpdateUI();
+            Debug.Log("Eventbus.Subscribers.Count: " + EventBus.SubscribersList.Count);
+            EventBus.RaiseEvent<IResettable>(resettable => resettable.ResetState());
+            EventBus.RaiseEvent<IPausable>(pausable => pausable.Resume());
+        }
+
+        private void UpdateUI()
+        {
+            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateHealth(_model.Health));
+            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_model.Score));
         }
     }
 }

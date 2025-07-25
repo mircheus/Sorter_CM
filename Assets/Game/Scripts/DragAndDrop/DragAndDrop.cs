@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Game.Scripts.FigureFactory.Figures;
+using Game.Scripts.Spawner;
 using Game.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace Game.Scripts.DragAndDrop
 {
-    public class DragAndDrop : MonoBehaviour, IPausable
+    public class DragAndDrop : MonoBehaviour, IPausable, IResettable
     {
         [Header("References: ")]
         [SerializeField] private InputActionReference touch;
@@ -45,6 +46,30 @@ namespace Game.Scripts.DragAndDrop
             touch.action.canceled -= OnTouchReleased;
             screenPosition.action.Disable();
             EventBus.Unsubscribe(this);
+        }
+        
+        public void Pause()
+        {
+            touch.action.Disable();
+            screenPosition.action.Disable();
+        }
+
+        public void Resume()
+        {
+            touch.action.Enable();
+            screenPosition.action.Enable();
+        }
+
+        public void Register()
+        {
+            var resetController = FindObjectsByType<ResetController>(FindObjectsSortMode.None);
+            resetController[0].Register(this);
+        }
+
+        public void ResetState()
+        {
+            touch.action.Enable();
+            screenPosition.action.Enable();
         }
     
         private void OnTouchPressed(InputAction.CallbackContext context)
@@ -84,18 +109,6 @@ namespace Game.Scripts.DragAndDrop
             }
               
             iDraggable?.EndDrag();
-        }
-
-        public void Pause()
-        {
-            touch.action.Disable();
-            screenPosition.action.Disable();
-        }
-
-        public void Resume()
-        {
-            touch.action.Enable();
-            screenPosition.action.Enable();
         }
     }
 }

@@ -1,11 +1,10 @@
 using Game.Scripts.Infrastructure;
-using Game.Scripts.Infrastructure.Model;
 using Game.Scripts.Model;
 using UnityEngine;
 
 namespace Game.Scripts.UI
 {
-    public class MainUIController : MonoBehaviour, IUpdateUIEvents, IEndGameEvents
+    public class MainUIController : MonoBehaviour, IUpdateUIEvents, IEndGameEvents, IRestartGameEvents
     {
         [Header("UI views: ")]
         [SerializeField] private ScoreView scoreView;
@@ -60,6 +59,21 @@ namespace Game.Scripts.UI
         {
             gameOverView.gameObject.SetActive(true);
             gameOverView.Show();
+        }
+
+        public void RestartGame()
+        {
+            if (gameWinView.gameObject.activeSelf)
+            {
+                gameWinView.Hide();
+                gameWinView.gameObject.SetActive(false);
+            }
+
+            if (gameOverView.gameObject.activeSelf)
+            {
+                gameOverView.Hide();
+                gameOverView.gameObject.SetActive(false);
+            }
         }
     }
 }

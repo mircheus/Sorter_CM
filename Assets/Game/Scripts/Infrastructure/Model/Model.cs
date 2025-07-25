@@ -1,9 +1,9 @@
 ﻿using System;
 using Game.Scripts.FigureFactory;
 using Game.Scripts.FigureFactory.Figures;
-using Game.Scripts.Model;
+using Game.Scripts.Infrastructure;
 
-namespace Game.Scripts.Infrastructure.Model
+namespace Game.Scripts.Model
 {
     public class Model : IModel, IFigureExplodeEvent, IFigureSnapEvent, IDisposable
     {
@@ -53,7 +53,13 @@ namespace Game.Scripts.Infrastructure.Model
             
             DecreaseFigureCount();
         }
-
+        
+        public void ResetModel(int figuresCount, int health, int score = 0)
+        {
+            Dispose(); 
+            Initialize(figuresCount, health, score);
+        }
+        
         private void IncreaseScore(int amount = 1)
         {
             _score += amount;
