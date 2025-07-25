@@ -11,8 +11,7 @@ namespace Game.Scripts.Spawner
 {
     public class FigureSpawner : MonoBehaviour, IEndGameEvents, IPausable
     {
-        [Header("References: ")] 
-        [SerializeField] private DeathZone deathZone;
+        [Header("References: ")]
         [SerializeField] private DropSlot[] dropSlots; 
         [SerializeField] private MoveLine[] moveLines;
 
@@ -34,9 +33,9 @@ namespace Game.Scripts.Spawner
 
         private void OnEnable()
         {
-            if (deathZone != null)
+            foreach (var moveLine in moveLines)
             {
-                deathZone.FigureDespawned += OnFigureDespawned;
+                moveLine.DeathZone.FigureDespawned += OnFigureDespawned;
             }
 
             if (dropSlots != null && dropSlots.Length > 0)
@@ -52,16 +51,16 @@ namespace Game.Scripts.Spawner
 
         private void OnDisable()
         {
-            if (deathZone != null)
+            foreach (var moveLine in moveLines)
             {
-                deathZone.FigureDespawned -= OnFigureDespawned;
+                moveLine.DeathZone.FigureDespawned -= OnFigureDespawned;
             }
 
             if (dropSlots != null && dropSlots.Length > 0)
             {
                 foreach (var slot in dropSlots)
                 {
-                    slot.FigureDespawned += OnFigureDespawned;
+                    slot.FigureDespawned -= OnFigureDespawned;
                 }
             }
 
@@ -71,13 +70,13 @@ namespace Game.Scripts.Spawner
                 _spawnCoroutine = null;
             }
 
-            _isSpawning = false; // TODO: можно отдать на контроль вышестоящей сущности
+            _isSpawning = false; 
             EventBus.Unsubscribe(this);
         }
 
         private void Start()
         {
-            _isSpawning = true; // TODO: можно отдать на контроль вышестоящей сущности
+            _isSpawning = true; 
 
             if (_spawnCoroutine != null)
             {
