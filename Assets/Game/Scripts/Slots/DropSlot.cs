@@ -8,10 +8,12 @@ using UnityEngine.Events;
 namespace Game.Scripts.Slots
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DropSlot : MonoBehaviour // TODO: можно в SlotSpawner это всё закинуть
+    public class DropSlot : MonoBehaviour
     {
         [Header("References: ")]
         [SerializeField] private FigureType slotType;
+        [SerializeField] private ParticleSystem successFx;
+        [SerializeField] private ParticleSystem failFx;
 
         private SpriteRenderer _spriteRenderer;
         
@@ -38,6 +40,16 @@ namespace Game.Scripts.Slots
             }
             
             var isCorrectFigure = slotType == figure.FigureType;
+
+            if (isCorrectFigure && successFx != null && failFx != null)
+            {
+                successFx.Play();
+            }
+            else
+            {
+                failFx.Play();
+            }
+            
             EventBus.RaiseEvent<IFigureSnapEvent>(model => model.SnapFigure(isCorrectFigure));
             FigureDespawned?.Invoke(figure);
         }
