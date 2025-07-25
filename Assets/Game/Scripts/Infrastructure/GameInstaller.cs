@@ -25,7 +25,7 @@ namespace Game.Scripts
                 .AsSingle()
                 .NonLazy();
             
-            ObjectPool<Figure> objectPool = new ObjectPool<Figure>(figurePrefab, 25, poolParent); // TODO: где хранить настройку initialSize
+            ObjectPool<Figure> objectPool = new ObjectPool<Figure>(figurePrefab, 25, poolParent); 
             FigureFactory.FigureFactory figureFactory = new FigureFactory.FigureFactory(figuresList, objectPool);
 
             Container.Bind<FigureFactory.FigureFactory>()

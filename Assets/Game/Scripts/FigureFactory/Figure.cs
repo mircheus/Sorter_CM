@@ -78,7 +78,7 @@ namespace Game.Scripts.FigureFactory.Figures
         
         private void MoveRight()
         {
-            transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime)); // TODO: можно вынести вектор направление в настройку
+            transform.Translate(Vector3.right * (_currentSpeed * Time.deltaTime)); 
         }
         
         private bool TrySnapToSlot()

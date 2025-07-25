@@ -148,7 +148,7 @@ namespace Game.Scripts.Spawner
             {
                 SpawnRandomFigure();
                 float timeout = GetRandomTimeout();
-                yield return new WaitForSeconds(timeout); // TODO: можно сделать настраиваемым частоту спавна
+                yield return new WaitForSeconds(timeout);
             }
         }
 

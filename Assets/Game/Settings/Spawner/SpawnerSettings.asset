@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66e6b55887f45a18b817bab913468e3, type: 3}
   m_Name: SpawnerSettings
   m_EditorClassIdentifier: 
-  minSpawnTimeout: 1
-  maxSpawnTimeout: 2
-  minSpeed: 3
-  maxSpeed: 7
+  minSpawnTimeout: 0.5
+  maxSpawnTimeout: 1.5
+  minSpeed: 5
+  maxSpeed: 9

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2c23b8732648299b063297f7b7b3ee, type: 3}
   m_Name: LevelSettings
   m_EditorClassIdentifier: 
-  healthPoints: 10
-  figuresToSortMin: 8
-  figuresToSortMax: 15
+  healthPoints: 5
+  figuresToSortMin: 15
+  figuresToSortMax: 20
   score: 0

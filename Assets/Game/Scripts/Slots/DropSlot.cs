@@ -17,7 +17,7 @@ namespace Game.Scripts.Slots
 
         private SpriteRenderer _spriteRenderer;
         
-        public event UnityAction<Figure> FigureDespawned; // TODO: переделать под EventBus
+        public event UnityAction<Figure> FigureDespawned; 
 
         private void Awake()
         {
