@@ -60,12 +60,6 @@ namespace Game.Scripts.DragAndDrop
             screenPosition.action.Enable();
         }
 
-        public void Register()
-        {
-            var resetController = FindObjectsByType<ResetController>(FindObjectsSortMode.None);
-            resetController[0].Register(this);
-        }
-
         public void ResetState()
         {
             touch.action.Enable();
