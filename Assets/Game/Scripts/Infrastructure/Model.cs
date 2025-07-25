@@ -1,9 +1,8 @@
 ﻿using System;
-using Game.Scripts.FigureFactory;
+using Game.Scripts.Events;
 using Game.Scripts.FigureFactory.Figures;
-using Game.Scripts.Infrastructure;
 
-namespace Game.Scripts.Model
+namespace Game.Scripts.Infrastructure
 {
     public class Model : IModel, IFigureExplodeEvent, IFigureSnapEvent, IDisposable
     {

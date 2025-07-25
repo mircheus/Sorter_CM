@@ -1,6 +1,4 @@
-﻿using Game.Scripts.Infrastructure;
-
-namespace Game.Scripts.Model
+﻿namespace Game.Scripts.Events
 {
     public interface IUpdateUIEvents : IGlobalSubscriber
     {

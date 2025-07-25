@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Scripts.Events;
 using Game.Scripts.FigureFactory;
 using Game.Scripts.FigureFactory.Figures;
-using Game.Scripts.Model;
 using Game.Scripts.Slots;
 using UnityEngine;
 using Zenject;

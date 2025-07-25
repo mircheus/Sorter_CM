@@ -1,5 +1,5 @@
-﻿using Game.Scripts.FigureFactory.Figures;
-using Game.Scripts.Model;
+﻿using Game.Scripts.Events;
+using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Spawner;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Game.Scripts.Infrastructure
         [SerializeField] private int startHealth = 100;
         [SerializeField] private int startScore = 0;
         
-        private Model.Model _model;
+        private Model _model;
 
         private void OnEnable()
         {
@@ -25,7 +25,7 @@ namespace Game.Scripts.Infrastructure
         
         private void Start()
         {
-            _model = new Model.Model(figuresCount, startHealth, startScore);
+            _model = new Model(figuresCount, startHealth, startScore);
             UpdateUI();
         }
 

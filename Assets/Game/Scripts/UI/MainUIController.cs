@@ -1,5 +1,5 @@
+using Game.Scripts.Events;
 using Game.Scripts.Infrastructure;
-using Game.Scripts.Model;
 using UnityEngine;
 
 namespace Game.Scripts.UI

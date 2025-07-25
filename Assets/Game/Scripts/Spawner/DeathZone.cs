@@ -1,7 +1,7 @@
 ﻿using System;
+using Game.Scripts.Events;
 using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Infrastructure;
-using Game.Scripts.Model;
 using UnityEngine;
 
 namespace Game.Scripts.FigureFactory

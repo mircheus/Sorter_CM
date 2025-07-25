@@ -1,4 +1,4 @@
-namespace Game.Scripts.Infrastructure
+namespace Game.Scripts.Events
 {
     internal interface IRestartGameEvents : IGlobalSubscriber
     {

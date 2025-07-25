@@ -1,6 +1,4 @@
-using Game.Scripts.Infrastructure;
-
-namespace Game.Scripts.FigureFactory
+namespace Game.Scripts.Events
 {
     public interface IFigureExplodeEvent : IGlobalSubscriber
     {
