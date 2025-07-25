@@ -1,11 +1,9 @@
-﻿using System;
-using Game.Scripts.FigureFactory.Figures;
-using Game.Scripts.Infrastructure;
+﻿using Game.Scripts.FigureFactory.Figures;
 using Game.Scripts.Model;
 using Game.Scripts.Spawner;
 using UnityEngine;
 
-namespace Game.Scripts
+namespace Game.Scripts.Infrastructure
 {
     public class GameController : MonoBehaviour, IRestartGameEvents
     {
@@ -35,7 +33,6 @@ namespace Game.Scripts
         {
             _model.ResetModel(figuresCount, startHealth, startScore);
             UpdateUI();
-            Debug.Log("Eventbus.Subscribers.Count: " + EventBus.SubscribersList.Count);
             EventBus.RaiseEvent<IResettable>(resettable => resettable.ResetState());
             EventBus.RaiseEvent<IPausable>(pausable => pausable.Resume());
         }

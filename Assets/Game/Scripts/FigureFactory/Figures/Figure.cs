@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Game.Scripts.Slots;
 using Game.Scripts.Utilities;
 using UnityEngine;
@@ -61,9 +62,8 @@ namespace Game.Scripts.FigureFactory.Figures
             {
                 return;
             }
-            
-            transform.position = _originalPosition;
-            _currentSpeed = _movementSpeed;
+
+            transform.DOMove(_originalPosition, 0.45f).OnComplete(() => _currentSpeed = _movementSpeed);
         }
 
         public void ResumeMovement()

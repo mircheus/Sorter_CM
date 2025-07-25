@@ -14,9 +14,8 @@ namespace Game.Scripts.Model
         public int Health => _health;
         public int Score => _score;
         public int FiguresCount => _figuresCount;
-
-        // TODO: создавать Model в GameController или какой-то вышестоящей сущности
-        public Model(int figuresCount, int health, int score) // TODO: сделать в конструкторе проверку на корректность значений
+        
+        public Model(int figuresCount, int health, int score) 
         {
             Initialize(figuresCount, health, score);
         }
@@ -90,7 +89,6 @@ namespace Game.Scripts.Model
             }
             
             EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateFiguresCount(_figuresCount));
-            EventBus.RaiseEvent<IUpdateUIEvents>(ui => ui.UpdateScore(_score));
         }
 
         private bool IsHealthDepleted()
